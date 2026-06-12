@@ -5,4 +5,4 @@ const connectToDB = async () =>{
     console.log(`MongoDB connected: ${conn.connection.host}`)
 }
 
-export default connectToDB;
+export default connectToDB; 
