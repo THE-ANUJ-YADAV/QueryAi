@@ -27,4 +27,4 @@ export function authUser(req,res,next){
             err: "Invalid Token"
         })
     }
-}
+} 

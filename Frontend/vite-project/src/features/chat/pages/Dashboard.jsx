@@ -15,7 +15,7 @@ const Dashboard = () => {
     },[])
 
   return (
-    <div>Dashboard</div>
+    <main className='h-screen w-full flex bg-neutral-800'></main>
   )
 }
 
