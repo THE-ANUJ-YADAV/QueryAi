@@ -37,7 +37,7 @@ export async function sendMessage(req,res) {
        Aimessage: result,
        title,
        chat,
-       aimessage
+       aiMessage:aimessage
     })
 
 }
@@ -68,7 +68,7 @@ export async function getMessages(req,res){
         })
     }
 
-    const messages = await messageModel.findOne({
+    const messages = await messageModel.find({
         chat: chatId
     })
 
