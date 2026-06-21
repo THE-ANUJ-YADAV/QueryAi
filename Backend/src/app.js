@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(morgan("dev"))
 app.use(cors({
-    origin:"https://aiquery.netlify.app/login",
+    origin:"https://aiquery.netlify.app",
     credentials: true,
     methods: ["GET", "POST","PUT","DELETE"],
 }))
