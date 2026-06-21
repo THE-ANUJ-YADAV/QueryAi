@@ -46,8 +46,9 @@ export const useChat = ()=>{
         dispatch(setLoading(false))
     }
 
-    async function handleOpenChat(chatId){
+    async function handleOpenChat(chatId,chats){
 
+        if(chats[chatId]?.messages.length === 0){
         const data = await getMessages(chatId)
         const {messages} = data
 
@@ -59,6 +60,7 @@ export const useChat = ()=>{
             chatId,
             messages: formatttedMessages
         }))
+    }
         dispatch(setCurrentChatId(chatId))
 
     }

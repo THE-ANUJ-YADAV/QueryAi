@@ -2,156 +2,100 @@ import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useSelector } from 'react-redux'
 import { useChat } from '../hooks/useChat'
+import remarkGfm from 'remark-gfm'
+
 
 const Dashboard = () => {
   const chat = useChat()
-  const [chatInput, setChatInput] = useState('')
-
+  const [ chatInput, setChatInput ] = useState('')
   const chats = useSelector((state) => state.chat.chats)
-  const currentChatId = useSelector(
-    (state) => state.chat.currentChatId
-  )
+  const currentChatId = useSelector((state) => state.chat.currentChatId)
 
   useEffect(() => {
     chat.initializeSocketConnection()
     chat.handleGetChats()
   }, [])
 
-  const handleSubmitMessage = (e) => {
-    e.preventDefault()
+  const handleSubmitMessage = (event) => {
+    event.preventDefault()
 
-    const message = chatInput.trim()
-    if (!message) return
+    const trimmedMessage = chatInput.trim()
+    if (!trimmedMessage) {
+      return
+    }
 
-    chat.handleSendMessage({
-      message,
-      chatId: currentChatId,
-    })
-
+    chat.handleSendMessage({ message: trimmedMessage, chatId: currentChatId })
     setChatInput('')
   }
 
   const openChat = (chatId) => {
-    chat.handleOpenChat(chatId)
+    chat.handleOpenChat(chatId,chats)
   }
 
   return (
-    <main className="h-screen overflow-hidden bg-[#07090f] p-3 text-white md:p-5">
-      <section className="mx-auto flex h-full gap-4">
+    <main className='min-h-screen w-full bg-[#07090f] p-3 text-white md:p-5'>
+      <section className='mx-auto flex h-[calc(100vh-1.5rem)] w-full gap-4 rounded-3xl border   p-1 md:h-[calc(100vh-2.5rem)] md:gap-6 md:p-1 border-none'>
+        <aside className='hidden h-full w-72 shrink-0 rounded-3xl border  bg-[#080b12] p-4 md:flex md:flex-col'>
+          <h1 className='mb-5 text-3xl font-semibold tracking-tight'>Perplexity</h1>
 
-        {/* Sidebar */}
-        <aside className="hidden w-72 shrink-0 rounded-3xl bg-[#080b12] p-4 md:flex md:flex-col">
-          <h1 className="mb-5 text-3xl font-semibold">
-            QueryAi
-          </h1>
-
-          <div className="flex-1 space-y-2 overflow-y-auto">
-            {Object.values(chats).map((chatItem, index) => (
+          <div className='space-y-2'>
+            {Object.values(chats).map((chat,index) => (
               <button
-                key={chatItem._id || chatItem.id || index}
-                onClick={() =>
-                  openChat(chatItem._id || chatItem.id)
-                }
-                className="w-full rounded-xl border border-white/20 px-4 py-3 text-left transition hover:border-white/50"
+                onClick={()=>{openChat(chat.id)}}
+                key={index}
+                type='button'
+                className='w-full cursor-pointer rounded-xl border border-white/60 bg-transparent px-3 py-2 text-left text-base font-medium text-white/90 transition hover:border-white hover:text-white'
               >
-                {chatItem.title || `Chat ${index + 1}`}
+                {chat.title}
               </button>
             ))}
           </div>
         </aside>
 
-        {/* Chat Section */}
-        <section className="flex flex-1 flex-col rounded-3xl bg-[#080b12] p-4">
+        <section className='relative max-w-3/5 mx-auto flex h-full min-w-0 flex-1 flex-col gap-4'>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto pr-2">
-            <div className="space-y-4">
-
-              {chats[currentChatId]?.messages?.map(
-                (message, index) => (
-                  <div
-                    key={
-                      message.id ||
-                      message._id ||
-                      index
-                    }
-                    className={`flex ${
-                      message.role === 'user'
-                        ? 'justify-end'
-                        : 'justify-start'
-                    }`}
+          <div className='messages flex-1 space-y-3 overflow-y-auto pr-1 pb-30'>
+            {chats[ currentChatId ]?.messages.map((message) => (
+              <div
+                key={message.id}
+                className={`max-w-[82%] w-fit rounded-2xl px-4 py-3 text-sm md:text-base ${message.role === 'user'
+                    ? 'ml-auto rounded-br-none bg-white/12 text-white'
+                    : 'mr-auto border-none text-white/90'
+                  }`}
+              >
+                {message.role === 'user' ? (
+                  <p>{message.content}</p>
+                ) : (
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children }) => <p className='mb-2 last:mb-0'>{children}</p>,
+                      ul: ({ children }) => <ul className='mb-2 list-disc pl-5'>{children}</ul>,
+                      ol: ({ children }) => <ol className='mb-2 list-decimal pl-5'>{children}</ol>,
+                      code: ({ children }) => <code className='rounded bg-white/10 px-1 py-0.5'>{children}</code>,
+                      pre: ({ children }) => <pre className='mb-2 overflow-x-auto rounded-xl bg-black/30 p-3'>{children}</pre>
+                    }}
+                    remarkPlugins={[remarkGfm]}
                   >
-                    <div
-                      className={`w-fit max-w-[75%] rounded-2xl px-4 py-3 break-words text-sm md:text-base ${
-                        message.role === 'user'
-                          ? 'bg-white/10 text-white'
-                          : 'border border-white/20 bg-[#111827] text-white'
-                      }`}
-                    >
-                      {message.role === 'user' ? (
-                        <p className="whitespace-pre-wrap">
-                          {message.content}
-                        </p>
-                      ) : (
-                        <ReactMarkdown
-                          components={{
-                            p: ({ children }) => (
-                              <p className="mb-2 last:mb-0">
-                                {children}
-                              </p>
-                            ),
-                            ul: ({ children }) => (
-                              <ul className="mb-2 list-disc pl-5">
-                                {children}
-                              </ul>
-                            ),
-                            ol: ({ children }) => (
-                              <ol className="mb-2 list-decimal pl-5">
-                                {children}
-                              </ol>
-                            ),
-                            code: ({ children }) => (
-                              <code className="rounded bg-white/10 px-1 py-0.5">
-                                {children}
-                              </code>
-                            ),
-                            pre: ({ children }) => (
-                              <pre className="mb-2 overflow-x-auto rounded-xl bg-black/30 p-3">
-                                {children}
-                              </pre>
-                            ),
-                          }}
-                        >
-                          {message.content || ''}
-                        </ReactMarkdown>
-                      )}
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
+                    {message.content}
+                  </ReactMarkdown>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Input */}
-          <footer className="mt-4 rounded-3xl border border-white/20 bg-[#0b0f17] p-4">
-            <form
-              onSubmit={handleSubmitMessage}
-              className="flex gap-3"
-            >
+          <footer className='rounded-3xl w-full absolute bottom-2 border border-white/60 bg-[#080b12] p-4 md:p-5'>
+            <form onSubmit={handleSubmitMessage} className='flex flex-col gap-3 md:flex-row'>
               <input
-                type="text"
+                type='text'
                 value={chatInput}
-                onChange={(e) =>
-                  setChatInput(e.target.value)
-                }
-                placeholder="Type your message..."
-                className="flex-1 rounded-2xl border border-white/20 bg-transparent px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60"
+                onChange={(event) => setChatInput(event.target.value)}
+                placeholder='Type your message...'
+                className='w-full rounded-2xl border border-white/50 bg-transparent px-4 py-3 text-lg text-white outline-none transition placeholder:text-white/45 focus:border-white/90'
               />
-
               <button
-                type="submit"
+                type='submit'
                 disabled={!chatInput.trim()}
-                className="rounded-2xl border border-white/30 px-6 py-3 font-semibold transition hover:bg-white/10 disabled:opacity-50"
+                className='rounded-2xl border border-white/60 px-6 py-3 text-lg font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50'
               >
                 Send
               </button>
@@ -162,7 +106,5 @@ const Dashboard = () => {
     </main>
   )
 }
-
-
 
 export default Dashboard
