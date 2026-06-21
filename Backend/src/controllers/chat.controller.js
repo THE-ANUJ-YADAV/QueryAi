@@ -2,9 +2,11 @@ import { response } from "express"
 import { generateResponse, generateChatTitle } from "../services/ai.services.js"
 import chatModel from '../models/chat.model.js'
 import messageModel from "../models/message.model.js"
+import { getIO } from "../sockets/server.socket.js"
 
 export async function sendMessage(req,res) {
     const {message ,chat:chatId} = req.body
+    const io = getIO()
 
     let title = null, chat = null
 
@@ -31,6 +33,26 @@ export async function sendMessage(req,res) {
         chat: chatId  || chat._id,
         content: result,
         role: "ai"
+    })
+
+    const currentChatId = chatId || chat._id
+
+    // Emit user message to all clients in the chat room
+    io.to(`chat:${currentChatId}`).emit("message:new", {
+        chatId: currentChatId,
+        message: {
+            content: message,
+            role: "user"
+        }
+    })
+
+    // Emit AI response to all clients in the chat room
+    io.to(`chat:${currentChatId}`).emit("message:ai-response", {
+        chatId: currentChatId,
+        message: {
+            content: result,
+            role: "ai"
+        }
     })
 
     res.status(201).json({

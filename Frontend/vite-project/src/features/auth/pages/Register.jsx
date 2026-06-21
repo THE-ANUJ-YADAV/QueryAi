@@ -64,24 +64,27 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 bg-radial-gradient relative flex items-center justify-center p-4 overflow-hidden">
-      {/* Ambient gradient background */}
-      <div className="absolute inset-0 bg-radial-gradient from-purple-950/20 via-zinc-950 to-zinc-950"></div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 overflow-hidden bg-gradient-to-br from-[#0a0a0f] via-[#13131a] to-[#0d0d15]">
+      {/* Ambient background elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-indigo-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
+      </div>
       
       <div className="w-full max-w-md relative z-10">
         {/* Glass Morphism Card */}
-        <div className="bg-zinc-900/50 backdrop-blur-md rounded-2xl p-8 border border-zinc-800">
-          {/* Neural Node Logo */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <div className="rounded-2xl border border-white/10 bg-[#16161f]/80 backdrop-blur-md p-8 shadow-2xl">
+          {/* Logo */}
+          <div className="mb-8 flex items-center justify-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+              <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-zinc-100 mb-1">
-              Unlock the Intelligence
-            </h1>
-            <p className="text-zinc-400 text-sm">Join the neural network</p>
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-white">Query-AI</h1>
+              <p className="text-xs text-white/50 mt-1">Join the intelligence</p>
+            </div>
           </div>
 
           {/* Error Message */}
@@ -102,7 +105,7 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username Field */}
             <div>
-              <label htmlFor="username" className="block text-xs font-medium text-zinc-300 mb-2 uppercase tracking-wider">
+              <label htmlFor="username" className="mb-2 block text-sm font-medium text-white/90">
                 Username
               </label>
               <input
@@ -111,14 +114,14 @@ const Register = () => {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Choose your neural identity"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-950 text-zinc-200 placeholder-zinc-600 border border-zinc-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200 outline-none"
+                placeholder="Choose your identity"
+                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-indigo-500/50 focus:bg-white/10 focus:ring-1 focus:ring-indigo-500/30"
               />
             </div>
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-xs font-medium text-zinc-300 mb-2 uppercase tracking-wider">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-white/90">
                 Email
               </label>
               <input
@@ -128,14 +131,14 @@ const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-950 text-zinc-200 placeholder-zinc-600 border border-zinc-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200 outline-none"
+                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-indigo-500/50 focus:bg-white/10 focus:ring-1 focus:ring-indigo-500/30"
               />
             </div>
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-xs font-medium text-zinc-300 mb-2 uppercase tracking-wider">
-                Neural Key (Password)
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-white/90">
+                Password
               </label>
               <div className="relative">
                 <input
@@ -144,13 +147,13 @@ const Register = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Create a strong neural key"
-                  className="w-full px-4 py-3 rounded-lg bg-zinc-950 text-zinc-200 placeholder-zinc-600 border border-zinc-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200 outline-none"
+                  placeholder="Create a strong password"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-indigo-500/50 focus:bg-white/10 focus:ring-1 focus:ring-indigo-500/30"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-400 transition"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition"
                 >
                   {showPassword ? (
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -167,7 +170,7 @@ const Register = () => {
               </div>
               {formData.password && (
                 <div className="mt-2 flex items-center gap-2">
-                  <div className="flex-1 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                  <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
                     <div
                       className={`h-full transition-all ${
                         passwordStrength.level === 1 ? 'w-1/3 bg-red-500' :
@@ -187,40 +190,34 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 mt-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-lg hover:shadow-purple-500/50 text-white font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Initializing Neural Network...' : 'Unlock Intelligence'}
+              {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 
           {/* Divider */}
           <div className="my-6 flex items-center">
-            <div className="flex-1 border-t border-zinc-800"></div>
-            <span className="px-3 text-xs text-zinc-500 uppercase tracking-widest">or pass through neural key</span>
-            <div className="flex-1 border-t border-zinc-800"></div>
+            <div className="flex-1 border-t border-white/10"></div>
+            <span className="px-3 text-xs text-white/50 uppercase tracking-widest">or</span>
+            <div className="flex-1 border-t border-white/10"></div>
           </div>
 
           {/* Social Auth Buttons */}
-          <div className="space-y-3">
-            <button className="w-full py-3 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-200 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.889-2.126 5.413-5.044 5.972-3.368.608-6.175-1.897-6.175-5.247 0-.668.119-1.307.357-1.918a9.42 9.42 0 0 1 .139-1.626h.001a.02.02 0 0 0 .002-.009 8.9 8.9 0 0 1 10.458 10.45 2.9 2.9 0 0 0 2.529.754c3.616-1.996 5.9-6.216 5.9-11.182 0-.668-.119-1.307-.357-1.918a9.42 9.42 0 0 1-.139-1.626h-.001a.02.02 0 0 0-.002-.009A10.96 10.96 0 0 0 15.545 6.558Z" />
-              </svg>
+          <div className="space-y-2">
+            <button className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 font-medium text-white/90 transition-all duration-200 hover:bg-white/10 hover:border-white/20">
               Continue with Google
             </button>
-            <button className="w-full py-3 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-200 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.544 2.914 1.19.092-.926.35-1.557.636-1.914-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.817c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.137 18.191 20 14.446 20 10.017 20 4.484 15.522 0 10 0z" clipRule="evenodd" />
-              </svg>
+            <button className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 font-medium text-white/90 transition-all duration-200 hover:bg-white/10 hover:border-white/20">
               Continue with GitHub
             </button>
           </div>
 
           {/* Footer Links */}
           <div className="mt-8 text-center">
-            <p className="text-zinc-400 text-sm">
+            <p className="text-sm text-white/60">
               Already have an account?{' '}
-              <a href="/login" className="text-purple-400 hover:text-purple-300 font-semibold transition-colors">
+              <a href="/login" className="font-semibold text-indigo-400 transition-colors hover:text-purple-400">
                 Sign in here
               </a>
             </p>
