@@ -93,11 +93,21 @@ export const useChat = ()=>{
 
     }
 
+    function handleCreateNewChat() {
+        const newChatId = `new-chat-${Date.now()}`
+        dispatch(createNewChat({
+            chatId: newChatId,
+            title: "New Chat",
+        }))
+        dispatch(setCurrentChatId(newChatId))
+    }
+
     return {
         initializeSocketConnection,
         handleSendMessage,
         handleGetChats,
-        handleOpenChat
+        handleOpenChat,
+        handleCreateNewChat
     }
 
 }

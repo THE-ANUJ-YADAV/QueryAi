@@ -66,7 +66,7 @@ const Dashboard = () => {
   }
 
   const handleNewChat = () => {
-    chat.handleCreateNewChat?.()
+    chat.handleCreateNewChat()
     setSidebarOpen(false)
   }
 
