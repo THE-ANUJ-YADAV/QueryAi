@@ -49,6 +49,7 @@ const Dashboard = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  console.log("currentChatId = ",currentChatId)
   const handleSubmitMessage = (event) => {
     event.preventDefault()
     const trimmedMessage = chatInput.trim()

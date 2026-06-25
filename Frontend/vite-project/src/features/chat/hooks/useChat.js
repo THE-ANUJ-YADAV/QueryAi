@@ -107,7 +107,7 @@ export const useChat = ()=>{
         handleSendMessage,
         handleGetChats,
         handleOpenChat,
-        handleCreateNewChat
+        // handleCreateNewChat
     }
 
 }
