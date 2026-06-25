@@ -13,6 +13,7 @@ app.use(cookieParser())
 app.use(morgan("dev"))
 app.use(cors({
     origin:"https://query-ai-frontend-black.vercel.app",
+    credentials:true,
     methods: ["GET", "POST","PUT","DELETE"],
 }))
 
