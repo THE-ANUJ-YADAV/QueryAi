@@ -31,18 +31,18 @@ export async function register(req, res) {
         email: user.email,
     }, process.env.JWT_SECRET)
 
-    await sendEmail({
-        to: email,
-        subject: "Welcome to Perplexity!",
-        html: `
-                <p>Hi ${username},</p>
-                <p>Thank you for registering at <strong>Perplexity</strong>. We're excited to have you on board!</p>
-                <p>Please verify your email address by clicking the link below:</p>
-                <a href="https://queryai-3j72.onrender.com/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
-                <p>If you did not create an account, please ignore this email.</p>
-                <p>Best regards,<br>The Perplexity Team</p>
-        `
-    })
+    // await sendEmail({
+    //     to: email,
+    //     subject: "Welcome to Perplexity!",
+    //     html: `
+    //             <p>Hi ${username},</p>
+    //             <p>Thank you for registering at <strong>Perplexity</strong>. We're excited to have you on board!</p>
+    //             <p>Please verify your email address by clicking the link below:</p>
+    //             <a href="https://queryai-3j72.onrender.com/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
+    //             <p>If you did not create an account, please ignore this email.</p>
+    //             <p>Best regards,<br>The Perplexity Team</p>
+    //     `
+    // })
 
     res.status(201).json({
         message: "User registered successfully",
